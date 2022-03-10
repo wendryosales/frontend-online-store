@@ -8,6 +8,7 @@ class Home extends Component {
           <input
             type="text"
             className="input-search"
+            placeholder="Pesquisar"
           />
         </div>
         <div className="main">
@@ -17,7 +18,6 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
-
       </div>
     );
   }
