@@ -1,17 +1,13 @@
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 
-class App extends React.Component {
+class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={ Home } />
-          </Switch>
-        </BrowserRouter>
+        <Link to="/"/>
       </div>
     );
   }
