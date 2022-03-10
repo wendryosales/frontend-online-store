@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Categories from '../components/Categories';
 
 class Home extends Component {
   render() {
@@ -18,6 +19,7 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
+        <Categories />
       </div>
     );
   }
