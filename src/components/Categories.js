@@ -27,10 +27,16 @@ class Categories extends Component {
     const { categories } = this.state;
 
     return (
-      <div className="category-column">
-        { categories.map((category) => (
-          <CategoriesBtn name={ category.name } key={ category.id } />
-        ))}
+      <div className="container ">
+        <div className="d-flex flex-column">
+          { categories.map((category) => (
+            <CategoriesBtn
+              id={ category.id }
+              name={ category.name }
+              key={ category.id }
+            />
+          ))}
+        </div>
       </div>
     );
   }

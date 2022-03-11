@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class CategoriesBtn extends Component {
+  handleClick = () => {
+
+  }
+
   render() {
-    const { name } = this.props;
+    const { name, id } = this.props;
 
     return (
       <button
+        className="btn btn-primary col-3 mb-1"
         data-testid="category"
-        type="button"
+        id={ id }
         name={ name }
+        type="button"
       >
         {name}
       </button>
@@ -18,6 +24,7 @@ class CategoriesBtn extends Component {
 }
 
 CategoriesBtn.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };
 
