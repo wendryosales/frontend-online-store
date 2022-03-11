@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CardProduct from '../components/CardProduct';
+import Categories from '../components/Categories';
 import CartButton from '../components/CartButton';
 import { getProductsFromSearch } from '../services/api';
 
@@ -70,6 +71,7 @@ class Home extends Component {
             }
           </div>
         </div>
+        <Categories />
       </div>
     );
   }
