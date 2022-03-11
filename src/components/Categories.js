@@ -11,17 +11,13 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    this.fetchCategories().then((data) => {
+    getCategories().then((data) => {
       this.setState({
         categories: data,
       });
     });
   }
 
-  fetchCategories = async () => {
-    const result = await getCategories();
-    return result;
-  }
 
   render() {
     const { categories } = this.state;
