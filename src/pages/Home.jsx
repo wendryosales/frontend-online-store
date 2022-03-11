@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Categories from '../components/Categories';
+import CartButton from '../components/CartButton';
 
 class Home extends Component {
   render() {
@@ -20,6 +21,7 @@ class Home extends Component {
           </p>
         </div>
         <Categories />
+        <CartButton />
       </div>
     );
   }
