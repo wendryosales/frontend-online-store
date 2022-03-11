@@ -20,8 +20,8 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
-        <Categories />
         <CartButton />
+        <Categories />
       </div>
     );
   }

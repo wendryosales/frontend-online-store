@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
 import { getCategories } from '../services/api';
+import CategoriesBtn from './CategoriesBtn';
 
 class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      categories: [],
     };
   }
 
   componentDidMount() {
-    this.fetchCategories();
-  }
-
-  fetchCategories = async () => {
-    const data = await getCategories();
-
-    this.setState({
-      data,
+    this.fetchCategories().then((data) => {
+      this.setState({
+        categories: data,
+      });
     });
   }
 
+  fetchCategories = async () => {
+    const result = await getCategories();
+    return result;
+  }
+
   render() {
-    const { data } = this.state;
+    const { categories } = this.state;
 
     return (
-      <div>{ console.log(data) }</div>
+      <div className="category-column">
+        { categories.map((category) => (
+          <CategoriesBtn name={ category.name } key={ category.id } />
+        ))}
+      </div>
     );
   }
 }
