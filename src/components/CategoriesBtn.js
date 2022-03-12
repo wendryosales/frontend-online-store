@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class CategoriesBtn extends Component {
-  handleClick = () => {
-
-  }
-
   render() {
     const { name, id } = this.props;
 
