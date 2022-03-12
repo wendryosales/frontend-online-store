@@ -30,6 +30,10 @@ class Home extends Component {
     });
   }
 
+  displayProductsByCategory = (categoryProducts) => {
+    this.setState({ products: categoryProducts });
+  }
+
   render() {
     const { searchValue, products } = this.state;
     return (
@@ -56,22 +60,24 @@ class Home extends Component {
           <CartButton />
         </div>
         <div className="main">
-          <p
-            data-testid="home-initial-message"
-          >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-          <div className="listItems">
-            { products.length === 0 && <p> Nenhum produto foi encontrado</p>}
-            {
-              products.length > 1 && products.map((element) => (<CardProduct
-                key={ element.id }
-                data={ element }
-              />))
-            }
+          <Categories displayProductsByCategory={ this.displayProductsByCategory } />
+          <div>
+            <p
+              data-testid="home-initial-message"
+            >
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+            <div className="listItems">
+              { products.length === 0 && <p> Nenhum produto foi encontrado</p>}
+              {
+                products.length > 1 && products.map((element) => (<CardProduct
+                  key={ element.id }
+                  data={ element }
+                />))
+              }
+            </div>
           </div>
         </div>
-        <Categories />
       </div>
     );
   }
