@@ -83,6 +83,7 @@ class Home extends Component {
                   data={ element }
                 />))
               }
+
             </div>
           </div>
         </div>
