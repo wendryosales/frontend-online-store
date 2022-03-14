@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
+import PropTypes from 'prop-types';
+import { getCategories, getProductsFromCategory } from '../services/api';
 import CategoriesBtn from './CategoriesBtn';
 
 class Categories extends Component {
@@ -18,8 +19,18 @@ class Categories extends Component {
     });
   }
 
+  handleClickOnCategory = async (event) => {
+    const { displayProductsByCategory } = this.props;
+    const { id } = event.target;
+
+    const data = await getProductsFromCategory(id);
+
+    displayProductsByCategory(data.results, id);
+  }
+
   render() {
     const { categories } = this.state;
+    const { categoryId } = this.props;
 
     return (
       <div className="container ">
@@ -28,7 +39,9 @@ class Categories extends Component {
             <CategoriesBtn
               id={ category.id }
               name={ category.name }
+              handleClickOnCategory={ this.handleClickOnCategory }
               key={ category.id }
+              toggleSelected={ categoryId }
             />
           ))}
         </div>
@@ -36,5 +49,10 @@ class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  displayProductsByCategory: PropTypes.func.isRequired,
+  categoryId: PropTypes.string.isRequired,
+};
 
 export default Categories;

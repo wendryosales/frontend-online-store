@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class CategoriesBtn extends Component {
-  handleClick = () => {
-
-  }
-
   render() {
-    const { name, id } = this.props;
+    const { name, id, handleClickOnCategory, toggleSelected } = this.props;
 
     return (
       <button
-        className="btn btn-primary col-3 mb-1"
+        className={ toggleSelected === id
+          ? 'btn btn-secondary col-3 mb-1 ' : 'btn btn-primary col-3 mb-1' }
         data-testid="category"
         id={ id }
         name={ name }
         type="button"
+        onClick={ handleClickOnCategory }
       >
         {name}
       </button>
@@ -26,6 +24,8 @@ class CategoriesBtn extends Component {
 CategoriesBtn.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  handleClickOnCategory: PropTypes.func.isRequired,
+  toggleSelected: PropTypes.string.isRequired,
 };
 
 export default CategoriesBtn;

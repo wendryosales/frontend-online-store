@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CardProduct from '../components/CardProduct';
 import Categories from '../components/Categories';
 import CartButton from '../components/CartButton';
-import { getProductsFromSearch } from '../services/api';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends Component {
   constructor() {
@@ -10,7 +10,8 @@ class Home extends Component {
     this.state = {
       //  começa valendo 1 para não renderizar o <p>Nenhum produto foi encontrado</p>
       products: [1],
-      searchValue: 'computador',
+      category: '',
+      searchValue: '',
     };
   }
 
@@ -23,15 +24,23 @@ class Home extends Component {
   }
 
   handleClick = async () => {
-    const { searchValue } = this.state;
-    const response = await getProductsFromSearch(searchValue);
+    const { searchValue, category } = this.state;
+    const response = await getProductsFromCategoryAndQuery(category, searchValue);
     this.setState({
       products: response.results,
+    }, () => {
+      this.setState({ searchValue: '' });
     });
   }
 
+  displayProductsByCategory = (categoryProducts, id) => {
+    this.setState((prevState) => ({
+      products: categoryProducts,
+      category: prevState.category === id ? '' : id }));
+  }
+
   render() {
-    const { searchValue, products } = this.state;
+    const { searchValue, products, category } = this.state;
     return (
       <div className="home ">
         <div className="d-flex justify-content-around">
@@ -56,22 +65,27 @@ class Home extends Component {
           <CartButton />
         </div>
         <div className="main">
-          <p
-            data-testid="home-initial-message"
-          >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-          <div className="listItems">
-            { products.length === 0 && <p> Nenhum produto foi encontrado</p>}
-            {
-              products.length > 1 && products.map((element) => (<CardProduct
-                key={ element.id }
-                data={ element }
-              />))
-            }
+          <Categories
+            displayProductsByCategory={ this.displayProductsByCategory }
+            categoryId={ category }
+          />
+          <div>
+            <p
+              data-testid="home-initial-message"
+            >
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+            <div className="listItems">
+              { products.length === 0 && <p> Nenhum produto foi encontrado</p>}
+              {
+                products.length > 1 && products.map((element) => (<CardProduct
+                  key={ element.id }
+                  data={ element }
+                />))
+              }
+            </div>
           </div>
         </div>
-        <Categories />
       </div>
     );
   }
