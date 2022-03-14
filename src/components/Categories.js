@@ -25,11 +25,12 @@ class Categories extends Component {
 
     const data = await getProductsFromCategory(id);
 
-    displayProductsByCategory(data.results);
+    displayProductsByCategory(data.results, id);
   }
 
   render() {
     const { categories } = this.state;
+    const { categoryId } = this.props;
 
     return (
       <div className="container ">
@@ -40,6 +41,7 @@ class Categories extends Component {
               name={ category.name }
               handleClickOnCategory={ this.handleClickOnCategory }
               key={ category.id }
+              toggleSelected={ categoryId }
             />
           ))}
         </div>
@@ -50,6 +52,7 @@ class Categories extends Component {
 
 Categories.propTypes = {
   displayProductsByCategory: PropTypes.func.isRequired,
+  categoryId: PropTypes.string.isRequired,
 };
 
 export default Categories;
