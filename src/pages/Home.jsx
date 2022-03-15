@@ -46,6 +46,7 @@ class Home extends Component {
 
   render() {
     const { searchValue, products, category } = this.state;
+
     return (
       <div className="home ">
         <div className="d-flex justify-content-around">
