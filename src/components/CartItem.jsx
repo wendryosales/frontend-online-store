@@ -27,9 +27,18 @@ class CartItem extends Component {
     }), () => {
       const { quantity } = this.state;
       const { data: { price }, changeTotalPrice } = this.props;
+      if (quantity < 1) {
+        this.setState({ quantity: 1 }, () => changeTotalPrice(price));
+      }
       changeTotalPrice(price * quantity);
     });
   };
+
+  handleRemoveItem = () => {
+    const { data, removeItem } = this.props;
+
+    removeItem(data.id);
+  }
 
   render() {
     const { quantity } = this.state;
@@ -42,6 +51,7 @@ class CartItem extends Component {
         <button
           type="button"
           className="btn btn-outline-danger"
+          onClick={ this.handleRemoveItem }
         >
           <AiFillCloseCircle />
         </button>
@@ -49,7 +59,11 @@ class CartItem extends Component {
           src={ thumbnailId }
           alt={ title }
         />
-        <div>{title}</div>
+        <div
+          data-testid="shopping-cart-product-name"
+        >
+          {title}
+        </div>
         <div className="d-flex align-items-center">
           <button
             data-testid="product-decrease-quantity"
@@ -59,7 +73,12 @@ class CartItem extends Component {
           >
             <AiFillMinusCircle />
           </button>
-          <div>{ quantity }</div>
+          <div
+            data-testid="shopping-cart-product-quantity"
+          >
+            { quantity }
+
+          </div>
           <button
             data-testid="product-increase-quantity"
             type="button"
@@ -70,8 +89,7 @@ class CartItem extends Component {
           </button>
         </div>
         <div>
-          R$
-          <span>{fixedPrice.toFixed(2)}</span>
+          {`R$ ${fixedPrice * quantity}`}
         </div>
       </div>
     );
@@ -83,8 +101,10 @@ CartItem.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail_id: PropTypes.string,
+    id: PropTypes.string,
   }).isRequired,
-
+  changeTotalPrice: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
 };
 
 export default CartItem;
