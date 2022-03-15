@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { readShoppingCart, saveShoppingCart } from '../services/cart';
 
 class CardProduct extends Component {
   addToCart = () => {
@@ -12,13 +13,10 @@ class CardProduct extends Component {
       thumbnailId,
       id,
     };
-    let takeItem = JSON.parse(localStorage.getItem('shoppingCart'));
-    if (takeItem === null) {
-      takeItem = [];
-    }
-    const haveItem = takeItem.some((el) => el.id === object.id);
-    if (!haveItem) takeItem.push(object);
-    localStorage.setItem('shoppingCart', JSON.stringify(takeItem));
+    const takeItem = readShoppingCart();
+    const hasItem = takeItem.some((el) => el.id === object.id);
+    if (!hasItem) takeItem.push(object);
+    saveShoppingCart(takeItem);
   }
 
   render() {
