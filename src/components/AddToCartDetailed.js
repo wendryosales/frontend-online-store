@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { readShoppingCart, saveShoppingCart } from '../services/cart';
 
 class AddToCartDetailed extends React.Component {
-  handleAddToCartDet = async () => {
+  handleAddToCartDet = () => {
     const { details } = this.props;
-    const readShoppingCart = () => JSON.parse(localStorage.getItem('shoppingCart'));
-    const shoppingCart = await readShoppingCart();
-    const newShoppingCart = [...shoppingCart, details];
-    const saveShoppingCart = (param) => localStorage
-      .setItem('shoppingCart', JSON.stringify(param));
-    saveShoppingCart(newShoppingCart);
+    const { id, thumbnail_id: thumbnailId, title, price } = details;
+    const shoppingCart = readShoppingCart();
+    const newItem = { id, thumbnailId, title, price };
+    const hasItem = shoppingCart.some((item) => item.id === newItem.id);
+
+    if (!hasItem) {
+      shoppingCart.push(newItem);
+    }
+
+    saveShoppingCart(shoppingCart);
   }
 
   render() {
@@ -28,6 +33,7 @@ class AddToCartDetailed extends React.Component {
 
 AddToCartDetailed.propTypes = {
   details: PropTypes.shape({
+    id: PropTypes.string,
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail_id: PropTypes.string,
