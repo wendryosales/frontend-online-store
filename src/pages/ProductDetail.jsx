@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProductAttributes from '../components/ProductAttributes';
 import { getProductById } from '../services/api';
+import CartButton from '../components/CartButton';
 
 class ProductDetail extends React.Component {
   constructor(props) {
@@ -35,15 +36,14 @@ class ProductDetail extends React.Component {
           <img src={ `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp` } alt={ title } />
           <p>{`R$${price}`}</p>
           <CartButton />
-         </div>
+        </div>
         { !attributes ? <p>Carregando...</p>
           : (
             <div className="p-2">
-              {attributes.map((elem) => (
-                <ProductAttributes
-                  key={ elem.id }
-                  data={ elem }
-                />))}
+              {attributes.map((elem) => elem.value_name !== null && <ProductAttributes
+                key={ elem.id }
+                data={ elem }
+              />)}
             </div>
           )}
 
