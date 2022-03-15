@@ -1,8 +1,7 @@
 import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-
-/* [{"id": "testeId", "title": "Produto", "thumbnail_id": "https://http2.mlstatic.com/D_NQ_NP_892016-MLA44927459054_022021-O.webp", "price": 1259.37}] */
 
 class Cart extends React.Component {
   constructor() {
@@ -80,12 +79,17 @@ class Cart extends React.Component {
                   <br />
                   {`R$ ${totalPrice}`}
                 </div>
-                <button
-                  className="btn btn-primary"
-                  type="button"
+                <Link
+                  data-testid="checkout-products"
+                  to="/checkout"
                 >
-                  Finalizar Compra
-                </button>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    Finalizar Compra
+                  </button>
+                </Link>
               </>
             )}
         </div>

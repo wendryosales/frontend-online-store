@@ -48,13 +48,16 @@ class Home extends Component {
     const { searchValue, products, category } = this.state;
 
     return (
-      <div className="home ">
-        <div className="d-flex justify-content-around">
-          <div>
+      <div className="home">
+        <div
+          className="d-flex justify-content-around
+        header align-items-center shadow mb-4 bg-primary bg-gradient"
+        >
+          <div className="d-flex">
             <input
               onChange={ this.handleChange }
               type="text"
-              className="input-search"
+              className="input-search form-control me-2 "
               placeholder="Pesquisar"
               data-testid="query-input"
               value={ searchValue }
@@ -62,7 +65,7 @@ class Home extends Component {
             <button
               onClick={ this.handleClick }
               type="button"
-              className="btn btn-primary"
+              className="btn btn-light"
               data-testid="query-button"
             >
               Search
@@ -70,18 +73,18 @@ class Home extends Component {
           </div>
           <CartButton />
         </div>
-        <div className="main">
+        <div className="main d-flex">
           <Categories
             displayProductsByCategory={ this.displayProductsByCategory }
             categoryId={ category }
           />
-          <div>
+          <div className="container">
             <p
               data-testid="home-initial-message"
             >
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
-            <div className="listItems">
+            <div className="listItems d-flex flex-wrap">
               { products.length === 0 && <p> Nenhum produto foi encontrado</p>}
               {
                 products.length > 1 && products.map((element) => (<CardProduct

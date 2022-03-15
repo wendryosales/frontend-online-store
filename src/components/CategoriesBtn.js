@@ -8,7 +8,7 @@ class CategoriesBtn extends Component {
     return (
       <button
         className={ toggleSelected === id
-          ? 'btn btn-secondary col-3 mb-1 ' : 'btn btn-primary col-3 mb-1' }
+          ? 'btn btn-secondary mb-1' : 'btn btn-primary mb-1' }
         data-testid="category"
         id={ id }
         name={ name }
