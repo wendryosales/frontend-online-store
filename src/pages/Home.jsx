@@ -3,6 +3,7 @@ import CardProduct from '../components/CardProduct';
 import Categories from '../components/Categories';
 import CartButton from '../components/CartButton';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import { readShoppingCart } from '../services/cart';
 
 class Home extends Component {
   constructor() {
@@ -13,6 +14,10 @@ class Home extends Component {
       category: '',
       searchValue: '',
     };
+  }
+
+  componentDidMount() {
+    readShoppingCart();
   }
 
   handleChange = ({ target }) => {
@@ -41,6 +46,7 @@ class Home extends Component {
 
   render() {
     const { searchValue, products, category } = this.state;
+
     return (
       <div className="home ">
         <div className="d-flex justify-content-around">

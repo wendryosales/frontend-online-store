@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import ProductAttributes from '../components/ProductAttributes';
 import { getProductById } from '../services/api';
 import CartButton from '../components/CartButton';
+import AddToCartDetailed from '../components/AddToCartDetailed';
 
 class ProductDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: [],
+      details: {},
     };
   }
 
@@ -28,6 +29,7 @@ class ProductDetail extends React.Component {
       attributes,
       price,
       thumbnail_id: thumbnailId } } = this.state;
+    const { details } = this.state;
 
     return (
       <div className="d-flex p-2">
@@ -36,6 +38,7 @@ class ProductDetail extends React.Component {
           <img src={ `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp` } alt={ title } />
           <p>{`R$${price}`}</p>
           <CartButton />
+          <AddToCartDetailed details={ details } />
         </div>
         { !attributes ? <p>Carregando...</p>
           : (
@@ -46,7 +49,6 @@ class ProductDetail extends React.Component {
               />)}
             </div>
           )}
-
       </div>
     );
   }
