@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class CardProduct extends Component {
+  addToCart = () => {
+    const { data } = this.props;
+    const cartArray = [{}];
+    cartArray.push(data);
+    localStorage.setItem('shoppingCart', JSON.stringify(cartArray));
+    const takeItem = localStorage.getItem('shoppingCart');
+    const itemObj = JSON.parse(takeItem);
+    return console.log(itemObj);
+  }
+
   render() {
     const { data } = this.props;
     const { title, price, thumbnail_id: thumbnailId } = data; // camelCase erro LINT
@@ -12,6 +22,13 @@ class CardProduct extends Component {
           <h1>{ title }</h1>
           <img src={ url } alt={ title } />
           <p>{ price }</p>
+          <button
+            type="button"
+            data-testid="product-add-to-cart"
+            onClick={ this.addToCart }
+          >
+            Adicionar ao Carrinho
+          </button>
         </div>
       </div>
     );
