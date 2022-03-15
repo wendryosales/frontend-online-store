@@ -34,7 +34,8 @@ class ProductDetail extends React.Component {
           <h4 data-testid="product-detail-name">{ title }</h4>
           <img src={ `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp` } alt={ title } />
           <p>{`R$${price}`}</p>
-        </div>
+          <CartButton />
+         </div>
         { !attributes ? <p>Carregando...</p>
           : (
             <div className="p-2">
