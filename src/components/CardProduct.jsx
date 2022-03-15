@@ -3,14 +3,28 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class CardProduct extends Component {
+  constructor() {
+    super();
+    this.state = {
+      abc: '',
+    };
+  }
+
   addToCart = () => {
     const { data } = this.props;
-    const cartArray = [{}];
-    cartArray.push(data);
-    localStorage.setItem('shoppingCart', JSON.stringify(cartArray));
-    const takeItem = localStorage.getItem('shoppingCart');
-    const itemObj = JSON.parse(takeItem);
-    return console.log(itemObj);
+    const { title, price, thumbnail_id: thumbnailId, id } = data;
+    localStorage.setItem('shoppingCart', JSON.stringify(data));
+    let takeItem = JSON.parse(localStorage.getItem('shoppingCart'));
+    //  if (takeItem === null) {
+    //    takeItem = [];
+    //  }
+    this.setState({
+      abc: [...takeItem, data],
+    });
+    //  const takeItem = localStorage.getItem('shoppingCart');
+    //  takeItem.push(data);
+    //  const itemObj = JSON.parse(takeItem);
+    //  return console.log(itemObj);
   }
 
   render() {
@@ -19,17 +33,17 @@ class CardProduct extends Component {
     const url = `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp`;
     return (
       <div data-testid="product">
-        <Link data-testid="product-detail-link" to={ `/product/${id}` }>
+        <Link data-testid="product-detail-link" to={`/product/${id}`}>
           <div>
             <h1>{title}</h1>
-            <img src={ url } alt={ title } />
+            <img src={url} alt={title} />
             <p>{price}</p>
           </div>
         </Link>
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ this.addToCart }
+          onClick={this.addToCart}
         >
           Adicionar ao Carrinho
         </button>
