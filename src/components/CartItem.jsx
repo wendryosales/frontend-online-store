@@ -15,9 +15,8 @@ class CartItem extends Component {
     this.setState((prevState) => ({
       quantity: prevState.quantity + 1,
     }), () => {
-      const { quantity } = this.state;
       const { data: { price }, changeTotalPrice } = this.props;
-      changeTotalPrice(price * quantity);
+      changeTotalPrice(price);
     });
   };
 
@@ -27,10 +26,14 @@ class CartItem extends Component {
     }), () => {
       const { quantity } = this.state;
       const { data: { price }, changeTotalPrice } = this.props;
+
       if (quantity < 1) {
         this.setState({ quantity: 1 }, () => changeTotalPrice(price));
       }
-      changeTotalPrice(price * quantity);
+
+      const negative = -1;
+
+      changeTotalPrice(negative * price);
     });
   };
 
@@ -43,8 +46,8 @@ class CartItem extends Component {
   render() {
     const { quantity } = this.state;
     const { data } = this.props;
-    const { title, price, thumbnail_id: thumbnailId } = data;
-    const fixedPrice = price;
+    const { title, price, thumbnailId } = data;
+    const fixedPrice = (price * quantity).toFixed(2);
 
     return (
       <div className="d-flex align-items-center">
@@ -56,7 +59,7 @@ class CartItem extends Component {
           <AiFillCloseCircle />
         </button>
         <img
-          src={ thumbnailId }
+          src={ `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp` }
           alt={ title }
         />
         <div
@@ -89,7 +92,7 @@ class CartItem extends Component {
           </button>
         </div>
         <div>
-          {`R$ ${fixedPrice * quantity}`}
+          {`R$ ${fixedPrice}`}
         </div>
       </div>
     );
@@ -100,7 +103,7 @@ CartItem.propTypes = {
   data: PropTypes.shape({
     title: PropTypes.string,
     price: PropTypes.number,
-    thumbnail_id: PropTypes.string,
+    thumbnailId: PropTypes.string,
     id: PropTypes.string,
   }).isRequired,
   changeTotalPrice: PropTypes.func.isRequired,
