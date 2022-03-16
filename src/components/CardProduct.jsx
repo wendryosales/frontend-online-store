@@ -6,12 +6,14 @@ import { readShoppingCart, saveShoppingCart } from '../services/cart';
 class CardProduct extends Component {
   addToCart = () => {
     const { data } = this.props;
-    const { title, price, thumbnail_id: thumbnailId, id } = data;
+    const { title, price, thumbnail_id: thumbnailId,
+      id, available_quantity: availableQuantity } = data;
     const object = {
       title,
       price,
       thumbnailId,
       id,
+      availableQuantity,
     };
     const takeItem = readShoppingCart();
     const hasItem = takeItem.some((el) => el.id === object.id);
@@ -50,6 +52,7 @@ CardProduct.propTypes = {
     price: PropTypes.number,
     thumbnail_id: PropTypes.string,
     id: PropTypes.string,
+    available_quantity: PropTypes.number,
   }).isRequired,
 
 };

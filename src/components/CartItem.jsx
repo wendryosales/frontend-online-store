@@ -45,9 +45,12 @@ class CartItem extends Component {
 
   render() {
     const { quantity } = this.state;
-    const { data } = this.props;
+    const { data, data: { availableQuantity } } = this.props;
     const { title, price, thumbnailId } = data;
     const fixedPrice = (price * quantity).toFixed(2);
+
+    const availableStock = quantity === availableQuantity;
+    const minimumQuantity = quantity === 1;
 
     return (
       <div className="d-flex align-items-center">
@@ -73,6 +76,7 @@ class CartItem extends Component {
             type="button"
             className="btn btn-outline-warning"
             onClick={ this.handleRemoveClick }
+            disabled={ minimumQuantity }
           >
             <AiFillMinusCircle />
           </button>
@@ -87,6 +91,7 @@ class CartItem extends Component {
             type="button"
             className="btn btn-outline-success"
             onClick={ this.handleAddClick }
+            disabled={ availableStock }
           >
             <AiFillPlusCircle />
           </button>
@@ -105,6 +110,7 @@ CartItem.propTypes = {
     price: PropTypes.number,
     thumbnailId: PropTypes.string,
     id: PropTypes.string,
+    availableQuantity: PropTypes.number,
   }).isRequired,
   changeTotalPrice: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired,
