@@ -2,8 +2,6 @@ import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import CartItem from '../components/CartItem';
 
-/* [{"id": "testeId", "title": "Produto", "thumbnail_id": "https://http2.mlstatic.com/D_NQ_NP_892016-MLA44927459054_022021-O.webp", "price": 1259.37}] */
-
 class Cart extends React.Component {
   constructor() {
     super();
