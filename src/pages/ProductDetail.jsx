@@ -10,6 +10,7 @@ class ProductDetail extends React.Component {
     super(props);
     this.state = {
       details: {},
+      shippingFreeState: false,
     };
   }
 
@@ -18,8 +19,11 @@ class ProductDetail extends React.Component {
     const { params } = match;
     const { id } = params;
     const productInfo = await getProductById(id);
+    const { shipping } = productInfo;
+    const { free_shipping: freeShipping } = shipping;
     this.setState({
       details: productInfo,
+      shippingFreeState: freeShipping,
     });
   }
 
@@ -30,6 +34,7 @@ class ProductDetail extends React.Component {
       price,
       thumbnail_id: thumbnailId } } = this.state;
     const { details } = this.state;
+    const { shippingFreeState } = this.state;
 
     return (
       <div className="d-flex p-2">
@@ -37,6 +42,8 @@ class ProductDetail extends React.Component {
           <h4 data-testid="product-detail-name">{ title }</h4>
           <img src={ `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp` } alt={ title } />
           <p>{`R$${price}`}</p>
+          { shippingFreeState === true
+          && <p data-testid="free-shipping" className="text-success">Frete Grátis</p> }
           <CartButton />
           <AddToCartDetailed details={ details } />
         </div>

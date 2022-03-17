@@ -21,7 +21,8 @@ class CardProduct extends Component {
 
   render() {
     const { data } = this.props;
-    const { title, price, thumbnail_id: thumbnailId, id } = data; // camelCase erro LINT
+    const { title, price, thumbnail_id: thumbnailId, id, shipping } = data; // camelCase erro LINT
+    const { free_shipping: freeShipping } = shipping;
     const url = `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp`;
     return (
       <div
@@ -40,6 +41,8 @@ class CardProduct extends Component {
             {' '}
             {price.toFixed(2)}
           </p>
+          { freeShipping === true
+          && <p data-testid="free-shipping" className="text-success">Frete Grátis</p> }
           <button
             type="button"
             data-testid="product-add-to-cart"
@@ -61,8 +64,10 @@ CardProduct.propTypes = {
     price: PropTypes.number,
     thumbnail_id: PropTypes.string,
     id: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }).isRequired,
   }).isRequired,
-
 };
 
 export default CardProduct;
