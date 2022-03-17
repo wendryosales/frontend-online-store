@@ -21,4 +21,12 @@ class CartCheckout extends Component {
   }
 }
 
+CartCheckout.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string,
+    price: PropTypes.number,
+    thumbnailId: PropTypes.string,
+  }).isRequired,
+};
+
 export default CartCheckout;
