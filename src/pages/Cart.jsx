@@ -32,7 +32,9 @@ class Cart extends React.Component {
   }
 
   changeTotalPrice = (total) => {
-    this.setState({ totalPrice: total });
+    this.setState((prevState) => ({
+      totalPrice: prevState.totalPrice + total,
+    }));
   }
 
   removeItem = (itemId) => {
@@ -53,6 +55,7 @@ class Cart extends React.Component {
 
   render() {
     const { totalPrice, cartList } = this.state;
+    const totalFixed = totalPrice.toFixed(2);
 
     return (
       <div>
@@ -69,7 +72,7 @@ class Cart extends React.Component {
                 <div className="container">
                   {cartList.map((item) => (<CartItem
                     data={ item }
-                    key={ item }
+                    key={ item.id }
                     changeTotalPrice={ this.changeTotalPrice }
                     removeItem={ this.removeItem }
                   />))}
@@ -77,7 +80,7 @@ class Cart extends React.Component {
                 <div>
                   Valor Total da Compra:
                   <br />
-                  {`R$ ${totalPrice}`}
+                  {`R$ ${totalFixed}`}
                 </div>
                 <Link
                   data-testid="checkout-products"
