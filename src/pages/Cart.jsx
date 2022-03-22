@@ -2,8 +2,6 @@ import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import CartItem from '../components/CartItem';
 
-/* [{"id": "testeId", "title": "Produto", "thumbnail_id": "https://http2.mlstatic.com/D_NQ_NP_892016-MLA44927459054_022021-O.webp", "price": 1259.37}] */
-
 class Cart extends React.Component {
   constructor() {
     super();
@@ -33,7 +31,9 @@ class Cart extends React.Component {
   }
 
   changeTotalPrice = (total) => {
-    this.setState({ totalPrice: total });
+    this.setState((prevState) => ({
+      totalPrice: prevState.totalPrice + total,
+    }));
   }
 
   removeItem = (itemId) => {
@@ -54,6 +54,7 @@ class Cart extends React.Component {
 
   render() {
     const { totalPrice, cartList } = this.state;
+    const totalFixed = totalPrice.toFixed(2);
 
     return (
       <div>
@@ -70,7 +71,7 @@ class Cart extends React.Component {
                 <div className="container">
                   {cartList.map((item) => (<CartItem
                     data={ item }
-                    key={ item }
+                    key={ item.id }
                     changeTotalPrice={ this.changeTotalPrice }
                     removeItem={ this.removeItem }
                   />))}
@@ -78,7 +79,7 @@ class Cart extends React.Component {
                 <div>
                   Valor Total da Compra:
                   <br />
-                  {`R$ ${totalPrice}`}
+                  {`R$ ${totalFixed}`}
                 </div>
                 <button
                   className="btn btn-primary"

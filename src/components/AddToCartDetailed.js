@@ -5,9 +5,10 @@ import { readShoppingCart, saveShoppingCart } from '../services/cart';
 class AddToCartDetailed extends React.Component {
   handleAddToCartDet = () => {
     const { details } = this.props;
-    const { id, thumbnail_id: thumbnailId, title, price } = details;
+    const { id, thumbnail_id: thumbnailId, title,
+      price, available_quantity: availableQuantity } = details;
     const shoppingCart = readShoppingCart();
-    const newItem = { id, thumbnailId, title, price };
+    const newItem = { id, thumbnailId, title, price, availableQuantity };
     const hasItem = shoppingCart.some((item) => item.id === newItem.id);
 
     if (!hasItem) {
@@ -37,6 +38,7 @@ AddToCartDetailed.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail_id: PropTypes.string,
+    available_quantity: PropTypes.number,
   }).isRequired,
 };
 
