@@ -33,7 +33,7 @@ class Categories extends Component {
     const { categoryId } = this.props;
 
     return (
-      <div className="container ">
+      <div className="container w-25">
         <div className="d-flex flex-column">
           { categories.map((category) => (
             <CategoriesBtn

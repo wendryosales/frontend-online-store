@@ -23,24 +23,38 @@ class CardProduct extends Component {
 
   render() {
     const { data } = this.props;
-    const { title, price, thumbnail_id: thumbnailId, id } = data; // camelCase erro LINT
+    const { title, price, thumbnail_id: thumbnailId, id, shipping } = data; // camelCase erro LINT
+    const { free_shipping: freeShipping } = shipping;
     const url = `https://http2.mlstatic.com/D_NQ_NP_${thumbnailId}-O.webp`;
     return (
-      <div data-testid="product">
+      <div
+        className="card shadow card-width m-1 p-3 d-flex justify-content-between"
+        data-testid="product"
+      >
         <Link data-testid="product-detail-link" to={ `/product/${id}` }>
-          <div>
-            <h1>{title}</h1>
-            <img src={ url } alt={ title } />
-            <p>{price}</p>
-          </div>
+          <h1 className="fs-5 text card-title">{title}</h1>
         </Link>
-        <button
-          type="button"
-          data-testid="product-add-to-cart"
-          onClick={ this.addToCart }
-        >
-          Adicionar ao Carrinho
-        </button>
+        <Link data-testid="product-detail-link" to={ `/product/${id}` }>
+          <img className="card-img-center mh-img" src={ url } alt={ title } />
+        </Link>
+        <div>
+          <p className="fs-5 text">
+            R$
+            {' '}
+            {price.toFixed(2)}
+          </p>
+          { freeShipping === true
+          && <p data-testid="free-shipping" className="text-success">Frete Grátis</p> }
+          <button
+            type="button"
+            data-testid="product-add-to-cart"
+            onClick={ this.addToCart }
+            className="btn btn-primary"
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+
       </div>
     );
   }
@@ -53,8 +67,10 @@ CardProduct.propTypes = {
     thumbnail_id: PropTypes.string,
     id: PropTypes.string,
     available_quantity: PropTypes.number,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
-
 };
 
 export default CardProduct;

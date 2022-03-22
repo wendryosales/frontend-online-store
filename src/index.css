@@ -7,7 +7,24 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a {
+  text-decoration: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.mh-img {
+  max-height: 15rem;
+  max-width: 10rem;
+}
+
+.card-width {
+  width: 23%;
+}
+
+.header {
+  min-height: 20vh;
 }

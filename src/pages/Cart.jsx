@@ -1,5 +1,6 @@
 import React from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
 
 class Cart extends React.Component {
@@ -81,12 +82,17 @@ class Cart extends React.Component {
                   <br />
                   {`R$ ${totalFixed}`}
                 </div>
-                <button
-                  className="btn btn-primary"
-                  type="button"
+                <Link
+                  data-testid="checkout-products"
+                  to="/checkout"
                 >
-                  Finalizar Compra
-                </button>
+                  <button
+                    className="btn btn-primary"
+                    type="button"
+                  >
+                    Finalizar Compra
+                  </button>
+                </Link>
               </>
             )}
         </div>

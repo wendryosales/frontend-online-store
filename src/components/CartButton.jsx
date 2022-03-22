@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
 class CartButton extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class CartButton extends React.Component {
           to="/cart"
           className="cart-btn"
         >
-          Cart
+          <FaShoppingCart className="fs-2 text link-light" />
         </Link>
       </div>
     );
